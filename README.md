@@ -1,10 +1,36 @@
 # 🧠 Decision-Fragility Simulator
 
+<p align="center">
+
+<!-- Deployment Status -->
+<a href="https://app.fragility-sim.com">
+  <img src="https://img.shields.io/website?url=https%3A%2F%2Fapp.fragility-sim.com&label=Live%20App&style=for-the-badge&up_message=ONLINE&down_message=OFFLINE&color=2ea043" alt="Live App Status" />
+</a>
+
+<!-- License -->
+<a href="https://github.com/Gemini-cr73/decision-fragility-simulator/blob/main/LICENSE">
+  <img src="https://img.shields.io/github/license/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="License: MIT" />
+</a>
+
+<!-- Tech Stack -->
+<img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python" alt="Python" />
+<img src="https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit" alt="Streamlit" />
+<img src="https://img.shields.io/badge/PostgreSQL-DB-336791?style=for-the-badge&logo=postgresql" alt="Postgres" />
+<img src="https://img.shields.io/badge/Docker-Container-2496ed?style=for-the-badge&logo=docker" alt="Docker" />
+<img src="https://img.shields.io/badge/Azure-Cloud-0078D4?style=for-the-badge&logo=microsoftazure" alt="Azure Container Apps" />
+
+<!-- Version -->
+<img src="https://img.shields.io/badge/v1.0.0-RELEASE-success?style=for-the-badge" alt="Version" />
+
+<!-- Social Proof -->
+<img src="https://img.shields.io/github/stars/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="Stars" />
+<img src="https://img.shields.io/github/forks/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="Forks" />
+
+</p>
+
 **Live App:** https://app.fragility-sim.com  
 **Status:** ✓ Online & Secure (HTTPS)  
 **Tech Stack:** Python · Streamlit · PostgreSQL · Docker · Azure Container Apps
-
----
 
 ## 📌 Overview
 
@@ -24,8 +50,6 @@ The simulator assigns a **Fragility Score**, indicating whether behavior is:
 | < 0.20     | LOW            | Stable decision-making |
 | 0.20–0.50  | MEDIUM         | Increasing volatility |
 | > 0.50     | HIGH           | Fragile — constant changing of mind |
-
----
 
 ## 🎮 Key Features
 
@@ -58,14 +82,12 @@ or
 
 > ✍️ Edit the README first (tell me what to change)
 
----
-
 Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top too?
-
 
 ## 🛠️ System Architecture
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
