@@ -57,16 +57,15 @@
 - Highlights ability to deploy containerized apps in Azure 🚀
 - Demonstrates full DevOps lifecycle experience ✔️
 
-## 🏗️ Architecture Overview
+### 🧱 Architecture Overview
 
 ```mermaid
 flowchart LR
-    U[User Browser\nhttps://app.fragility-sim.com] --> CF[Cloudflare DNS & HTTPS]
-    CF --> AZ[Azure Web App (Container)\nStreamlit Dashboard]
-    AZ --> DB[(PostgreSQL Database\nuser_actions schema)]
-    AZ --> LOGS[Logs & Metrics\nAzure Portal]
-
-    DEV[Local Dev Machine\nVS Code + Docker Compose] --> AZ
+    U[User Browser (app.fragility-sim.com)] --> CF[Cloudflare DNS & HTTPS]
+    CF --> AZ[Azure Web App - Streamlit dashboard]
+    AZ --> DB[(PostgreSQL database - user_actions)]
+    AZ --> LOGS[Azure logs & metrics]
+    DEV[Local dev machine - VS Code & Docker Compose] --> AZ
     DEV --> DB
 
 ## 📌 Overview
@@ -125,6 +124,7 @@ Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
 
