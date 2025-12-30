@@ -57,6 +57,18 @@
 - Highlights ability to deploy containerized apps in Azure 🚀
 - Demonstrates full DevOps lifecycle experience ✔️
 
+## 🏗️ Architecture Overview
+
+```mermaid
+flowchart LR
+    U[User Browser\nhttps://app.fragility-sim.com] --> CF[Cloudflare DNS & HTTPS]
+    CF --> AZ[Azure Web App (Container)\nStreamlit Dashboard]
+    AZ --> DB[(PostgreSQL Database\nuser_actions schema)]
+    AZ --> LOGS[Logs & Metrics\nAzure Portal]
+
+    DEV[Local Dev Machine\nVS Code + Docker Compose] --> AZ
+    DEV --> DB
+
 ## 📌 Overview
 
 The **Decision-Fragility Simulator** models how user decision actions become more or less stable over time.  
@@ -113,6 +125,7 @@ Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
 
