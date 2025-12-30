@@ -28,6 +28,8 @@
 
 </p>
 
+> The Decision-Fragility Simulator is a full-stack cloud analytics app that models how user decision behavior becomes more or less stable over time. Built with Python, Streamlit, Docker, and PostgreSQL, and deployed on Azure with HTTPS-secured custom domain — this project demonstrates cloud deployment skills, behavioral analytics, and end-to-end DevOps execution.
+
 **Live App:** https://app.fragility-sim.com  
 **Status:** ✓ Online & Secure (HTTPS)  
 **Tech Stack:** Python · Streamlit · PostgreSQL · Docker · Azure Container Apps
@@ -111,6 +113,7 @@ Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
 
