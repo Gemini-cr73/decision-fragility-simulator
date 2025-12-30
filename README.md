@@ -32,6 +32,29 @@
 **Status:** ✓ Online & Secure (HTTPS)  
 **Tech Stack:** Python · Streamlit · PostgreSQL · Docker · Azure Container Apps
 
+## 📸 App Demo
+
+<p align="center">
+  <b>Decision-Fragility Simulator — Live Dashboard</b><br>
+  <img src="docs/dashboard.png" width="85%" />
+</p>
+
+**What’s Happening Here**
+- Live ingestion from PostgreSQL
+- Per-action behavior analysis
+- Fragility score auto-classification (LOW / MEDIUM / HIGH)
+- Secure Azure deployment with HTTPS 🔐
+
+<p align="center">
+  <b>Repository Structure & Cloud Deployment Setup</b><br>
+  <img src="docs/github-overview.png" width="85%" />
+</p>
+
+**Why It Matters**
+- Shows professional project organization 🗂️
+- Highlights ability to deploy containerized apps in Azure 🚀
+- Demonstrates full DevOps lifecycle experience ✔️
+
 ## 📌 Overview
 
 The **Decision-Fragility Simulator** models how user decision actions become more or less stable over time.  
@@ -88,6 +111,7 @@ Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
 
