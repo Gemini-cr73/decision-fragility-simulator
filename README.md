@@ -57,16 +57,20 @@
 - Highlights ability to deploy containerized apps in Azure 🚀
 - Demonstrates full DevOps lifecycle experience ✔️
 
-### 🧱 Architecture Overview
+## 🧱 Architecture Overview
 
-```mermaid
-flowchart LR
-    U[User Browser (app.fragility-sim.com)] --> CF[Cloudflare DNS & HTTPS]
-    CF --> AZ[Azure Web App - Streamlit dashboard]
-    AZ --> DB[(PostgreSQL database - user_actions)]
-    AZ --> LOGS[Azure logs & metrics]
-    DEV[Local dev machine - VS Code & Docker Compose] --> AZ
-    DEV --> DB
+The Decision-Fragility Simulator is deployed as a fully containerized cloud analytics app:
+
+- **User Browser** → **Cloudflare**  
+  Provides DNS routing and HTTPS security for `app.fragility-sim.com`
+- **Cloudflare** → **Azure Web App (Docker Container)**  
+  Hosts the Streamlit user interface and fragility analytics engine
+- **Azure Web App** ↔ **PostgreSQL Database**  
+  Stores the `user_actions` dataset for machine-calculated fragility scores
+- **Azure Web App** → **Azure Monitor / Logs**  
+  Tracks performance and behavior analytics in production
+- **Local Dev Machine** → **Docker Compose + VS Code**  
+  Exact same container image used for Azure deployment → full DevOps reproducibility
 
 ## 📌 Overview
 
@@ -124,6 +128,7 @@ Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top
 
 ```ascii
 User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+
 
 
 
