@@ -1,138 +1,107 @@
 # 🧠 Decision-Fragility Simulator
 
 <p align="center">
-
-<!-- Deployment Status -->
-<a href="https://app.fragility-sim.com">
-  <img src="https://img.shields.io/website?url=https%3A%2F%2Fapp.fragility-sim.com&label=Live%20App&style=for-the-badge&up_message=ONLINE&down_message=OFFLINE&color=2ea043" alt="Live App Status" />
-</a>
-
-<!-- License -->
-<a href="https://github.com/Gemini-cr73/decision-fragility-simulator/blob/main/LICENSE">
-  <img src="https://img.shields.io/github/license/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="License: MIT" />
-</a>
-
-<!-- Tech Stack -->
-<img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python" alt="Python" />
-<img src="https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit" alt="Streamlit" />
-<img src="https://img.shields.io/badge/PostgreSQL-DB-336791?style=for-the-badge&logo=postgresql" alt="Postgres" />
-<img src="https://img.shields.io/badge/Docker-Container-2496ed?style=for-the-badge&logo=docker" alt="Docker" />
-<img src="https://img.shields.io/badge/Azure-Cloud-0078D4?style=for-the-badge&logo=microsoftazure" alt="Azure Container Apps" />
-
-<!-- Version -->
-<img src="https://img.shields.io/badge/v1.0.0-RELEASE-success?style=for-the-badge" alt="Version" />
-
-<!-- Social Proof -->
-<img src="https://img.shields.io/github/stars/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="Stars" />
-<img src="https://img.shields.io/github/forks/Gemini-cr73/decision-fragility-simulator?style=for-the-badge" alt="Forks" />
-
+  <a href="https://app.fragility-sim.com">
+    <img src="https://img.shields.io/badge/Live_App-Online-brightgreen?style=for-the-badge&logo=azuredevops" alt="Live App" />
+  </a>
+  <img src="https://img.shields.io/badge/Cloud-Azure_Container_Apps-0078D4?style=for-the-badge&logo=microsoftazure" alt="Azure Container Apps" />
+  <img src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Database-Neon_PostgreSQL-15A3FF?style=for-the-badge&logo=postgresql" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Container-Docker-2496ED?style=for-the-badge&logo=docker" alt="Docker" />
+  <img src="https://img.shields.io/badge/v1.0.0-RELEASE-success?style=for-the-badge" alt="Version" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" />
 </p>
 
-> The Decision-Fragility Simulator is a full-stack cloud analytics app that models how user decision behavior becomes more or less stable over time. Built with Python, Streamlit, Docker, and PostgreSQL, and deployed on Azure with HTTPS-secured custom domain — this project demonstrates cloud deployment skills, behavioral analytics, and end-to-end DevOps execution.
+> The Decision-Fragility Simulator is a full-stack **behavioral analytics** app that models how user decision behavior becomes more or less stable over time.  
+> It is deployed to Azure with **Docker + HTTPS-secured custom domain**, demonstrating production DevOps, event-driven data engineering, and real-time cloud analytics.
 
-**Live App:** https://app.fragility-sim.com  
-**Status:** ✓ Online & Secure (HTTPS)  
-**Tech Stack:** Python · Streamlit · PostgreSQL · Docker · Azure Container Apps
-
-## 📸 App Demo
-
-<p align="center">
-  <b>Decision-Fragility Simulator — Live Dashboard</b><br>
-  <img src="docs/dashboard.png" width="85%" />
-</p>
-
-**What’s Happening Here**
-- Live ingestion from PostgreSQL
-- Per-action behavior analysis
-- Fragility score auto-classification (LOW / MEDIUM / HIGH)
-- Secure Azure deployment with HTTPS 🔐
-
-<p align="center">
-  <b>Repository Structure & Cloud Deployment Setup</b><br>
-  <img src="docs/github-overview.png" width="85%" />
-</p>
-
-**Why It Matters**
-- Shows professional project organization 🗂️
-- Highlights ability to deploy containerized apps in Azure 🚀
-- Demonstrates full DevOps lifecycle experience ✔️
-
-## 🧱 Architecture Overview
-
-The Decision-Fragility Simulator is deployed as a fully containerized cloud analytics app:
-
-- **User Browser** → **Cloudflare**  
-  Provides DNS routing and HTTPS security for `app.fragility-sim.com`
-- **Cloudflare** → **Azure Web App (Docker Container)**  
-  Hosts the Streamlit user interface and fragility analytics engine
-- **Azure Web App** ↔ **PostgreSQL Database**  
-  Stores the `user_actions` dataset for machine-calculated fragility scores
-- **Azure Web App** → **Azure Monitor / Logs**  
-  Tracks performance and behavior analytics in production
-- **Local Dev Machine** → **Docker Compose + VS Code**  
-  Exact same container image used for Azure deployment → full DevOps reproducibility
+🔗 **Live App:** https://app.fragility-sim.com  
+📡 **Status:** ✓ Online & Secure (TLS)  
+🧱 **Stack:** Python · Streamlit · Neon PostgreSQL · Docker · Azure Container Apps
 
 ## 📌 Overview
 
-The **Decision-Fragility Simulator** models how user decision actions become more or less stable over time.  
-It analyzes **behavior patterns** such as:
+This simulator models **human decision stability** using synthetic user actions:
 
-- Add to cart
-- Browse product pages
-- Login / logout
-- Purchase vs cancel
-- Refund requests
+- login → browse → add_to_cart → purchase  
+- cancel / refund loops  
+- hesitation-driven volatility patterns  
 
-The simulator assigns a **Fragility Score**, indicating whether behavior is:
+A **Fragility Score** is computed:
 
-| Score Range | Classification | Meaning |
-|------------|----------------|--------|
-| < 0.20     | LOW            | Stable decision-making |
-| 0.20–0.50  | MEDIUM         | Increasing volatility |
-| > 0.50     | HIGH           | Fragile — constant changing of mind |
+| Score | Classification | Meaning |
+|------:|:--------------:|--------|
+| < 0.20 | 🟩 LOW | Confident/stable decisions |
+| 0.20-0.50 | 🟨 MEDIUM | Mixed certainty |
+| > 0.50 | 🟥 HIGH | Indecisive / fragile |
 
-## 🎮 Key Features
+## 🎯 Purpose of the Project
 
-✔ Real-time ingestion of synthetic user actions  
-✔ PostgreSQL data persistence  
-✔ Automated Fragility Score computation  
-✔ Visual analytics: bar charts + behavior summaries  
-✔ Ability to simulate thousands of user events  
-✔ Secure HTTPS + custom domain deployment
+✔ Demonstrates **end-to-end cloud delivery**  
+✔ Showcases **data engineering + behavioral analytics**  
+✔ Fully deployed with **CI-style container workflow**  
+✔ Excellent hiring-portfolio showcase project 🎓💼  
 
-## 🔥 Next Deliverables
+## 🎮 Application Features
 
-Here’s what’s next — in order:
+| Feature | Description |
+|--------|-------------|
+| 🔁 Refresh Metrics | Live sync from PostgreSQL |
+| ➕ Insert Event | Add a single action for any user |
+| 📦 Bulk Ingest | Generate many users & events |
+| ▶ Run Analysis | Compute score + persist results |
+| 📈 Trend View | Score + event volume over time |
+| 🔥 Transition Graphs | Most common behavior flows |
+| 🧭 Sequence Explorer | Real user-journey windows |
 
-| Step | Task |
-|------|------|
-| 1️⃣ | You paste / commit this README.md into GitHub |
-| 2️⃣ | I add an MIT LICENSE to your repo |
-| 3️⃣ | Upload screenshots → `/docs/` folder |
-| 4️⃣ | Publish GitHub Release v1.0.0 |
-| 5️⃣ | Add GitHub badges (live status, deployment, tech stack) |
+## 🧩 Architecture Overview
 
-### ❓ Ready?
+The Decision-Fragility Simulator runs as a modern cloud-native analytics app with **two environments**: a production deployment on Azure and a local development flow that mirrors it.
 
-Reply:
+### 🌐 Production Architecture (Azure + Cloudflare + Neon)
 
-> 👍 Add LICENSE + Screenshots + Badges next
+<p align="center">
+  <img src="https://img.shields.io/badge/Client-Browser-0A84FF?style=for-the-badge&logo=safari&logoColor=white" />
+  ↓
+  <img src="https://img.shields.io/badge/DNS+TLS-Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" />
+  ↓
+  <img src="https://img.shields.io/badge/App-Azure_Container_Apps-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
+  ↓
+  <img src="https://img.shields.io/badge/Data-Neon_PostgreSQL-008272?style=for-the-badge&logo=postgresql&logoColor=white" />
+</p>
 
-or
+**Flow**
 
-> ✍️ Edit the README first (tell me what to change)
+1. **Browser** → user opens `https://app.fragility-sim.com`  
+2. **Cloudflare** → handles DNS + HTTPS for the custom domain  
+3. **Azure Container Apps** → runs the Dockerized Streamlit app + analytics engine  
+4. **Neon PostgreSQL** → stores `raw.user_actions` and `analytics.reports` tables  
 
-Would you like me to **auto-add your name + LinkedIn + GitHub badge** at the top too?
+| Component | Role |
+|----------|------|
+| **Cloudflare** | DNS, TLS termination, custom domain for `app.fragility-sim.com` |
+| **Azure Container Apps** | Hosts the containerized Streamlit UI and fragility analytics |
+| **Neon PostgreSQL** | Serverless Postgres backend for events and analysis history |
 
-## 🛠️ System Architecture
+The **same Docker image** is used locally and in Azure → strong environment consistency.
 
-```ascii
-User → Streamlit UI → Fragility Analysis Service → Postgres DB → Dashboard
+### 🖥️ Development Architecture (Local Docker + VS Code)
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Editor-VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" />
+  ↓
+  <img src="https://img.shields.io/badge/Runtime-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  ↓
+  <img src="https://img.shields.io/badge/Database-Neon_PostgreSQL-4B8BBE?style=for-the-badge&logo=postgresql&logoColor=white" />
+</p>
 
+In development, the app runs as a local Docker container, connecting securely to the same Neon PostgreSQL instance (or a dev branch of it), using the same environment variables as production.
 
+**Typical local workflow:**
 
+```bash
+# Build image
+docker build -t decision-fragility-simulator .
 
-
-
-
+# Run locally with env file
+docker run -p 8501:8501 --env-file .env decision-fragility-simulator
