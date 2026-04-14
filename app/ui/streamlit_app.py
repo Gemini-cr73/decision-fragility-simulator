@@ -14,21 +14,23 @@ if str(ROOT) not in sys.path:
 # ------------------------------------------------------------------
 # Standard imports
 # ------------------------------------------------------------------
-import random
-from typing import Dict, List, Tuple
 import io
+import random
 from datetime import datetime
 
+import matplotlib
 import pandas as pd
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import streamlit as st
 
+from app.analytics.report import build_report  # ⬅️ only build_report now
 from app.models.db import get_db_connection
-from app.analytics.report import build_report   # ⬅️ only build_report now
 from app.services.bulk_ingest import (
-    generate_events,
     bulk_insert,
     ensure_raw_schema_and_table,
+    generate_events,
 )
 from app.services.ingest_actions import insert_action
 
@@ -36,7 +38,7 @@ from app.services.ingest_actions import insert_action
 # ----------------------------
 # Helpers (DB reads)
 # ----------------------------
-def fetch_action_counts() -> List[Tuple[str, int]]:
+def fetch_action_counts() -> list[tuple[str, int]]:
     """
     Return [(action, count), ...] from raw.user_actions.
     Ensures schema/table exist before querying.
@@ -58,7 +60,7 @@ def fetch_action_counts() -> List[Tuple[str, int]]:
     cur.close()
     conn.close()
 
-    out: List[Tuple[str, int]] = []
+    out: list[tuple[str, int]] = []
     for r in rows:
         if isinstance(r, dict):
             out.append((r["action"], int(r["count"])))
@@ -87,7 +89,7 @@ def fetch_total_events() -> int:
     return int(row[0])
 
 
-def fetch_action_transitions(limit: int = 50) -> List[Tuple[str, str, int]]:
+def fetch_action_transitions(limit: int = 50) -> list[tuple[str, str, int]]:
     """
     Compute action -> next_action transition counts across user sessions.
 
@@ -127,7 +129,7 @@ def fetch_action_transitions(limit: int = 50) -> List[Tuple[str, str, int]]:
     cur.close()
     conn.close()
 
-    out: List[Tuple[str, str, int]] = []
+    out: list[tuple[str, str, int]] = []
     for r in rows:
         if isinstance(r, dict):
             out.append(
@@ -148,7 +150,7 @@ def fetch_transition_sequences(
     max_examples: int = 20,
     window_before: int = 2,
     window_after: int = 2,
-) -> List[Dict[str, object]]:
+) -> list[dict[str, object]]:
     """
     For a given transition (from_action -> to_action), return a small set of
     concrete user sequences that contain that transition.
@@ -172,7 +174,7 @@ def fetch_transition_sequences(
     conn.close()
 
     # Normalize to a simple list of (user_id, id, action)
-    events: List[Tuple[int, int, str]] = []
+    events: list[tuple[int, int, str]] = []
     for r in rows:
         if isinstance(r, dict):
             events.append(
@@ -192,13 +194,11 @@ def fetch_transition_sequences(
             )
 
     # Group by user_id
-    events_by_user: Dict[int, List[Dict[str, object]]] = {}
+    events_by_user: dict[int, list[dict[str, object]]] = {}
     for user_id, ev_id, action in events:
-        events_by_user.setdefault(user_id, []).append(
-            {"id": ev_id, "action": action}
-        )
+        events_by_user.setdefault(user_id, []).append({"id": ev_id, "action": action})
 
-    results: List[Dict[str, object]] = []
+    results: list[dict[str, object]] = []
     example_index = 1
 
     # For each user sequence, find windows where the transition occurs
@@ -266,7 +266,7 @@ def get_report_history(
         FROM analytics.reports
     """
     conditions = []
-    params: List[object] = []
+    params: list[object] = []
 
     if start is not None:
         conditions.append("created_at >= %s")
@@ -288,7 +288,7 @@ def get_report_history(
     return rows
 
 
-def parse_report_text(report_text: str) -> Dict[str, str]:
+def parse_report_text(report_text: str) -> dict[str, str]:
     """
     Extract score + label from the report text.
     Works even if formatting changes slightly.
@@ -322,7 +322,9 @@ st.caption(
 st.sidebar.header("Controls")
 
 seed_enabled = st.sidebar.checkbox("Deterministic bulk ingest (seeded)", value=True)
-seed_value = st.sidebar.number_input("Seed", min_value=0, max_value=999_999, value=73, step=1)
+seed_value = st.sidebar.number_input(
+    "Seed", min_value=0, max_value=999_999, value=73, step=1
+)
 
 num_users = st.sidebar.number_input(
     "Bulk ingest: users", min_value=1, max_value=200, value=10, step=1
@@ -496,7 +498,13 @@ else:
     df_sorted = df_history.sort_values("created_at")
 
     # Show a clean table WITHOUT the long details column
-    display_cols = ["id", "created_at", "total_events", "fragility_score", "fragility_label"]
+    display_cols = [
+        "id",
+        "created_at",
+        "total_events",
+        "fragility_score",
+        "fragility_label",
+    ]
     df_display = df_sorted[display_cols]
 
     st.markdown("**Recent runs**")
@@ -515,14 +523,10 @@ else:
     # Time-series charts (all runs in range)
     if not df_sorted.empty:
         st.markdown("### Fragility score over time")
-        st.line_chart(
-            df_sorted.set_index("created_at")[["fragility_score"]]
-        )
+        st.line_chart(df_sorted.set_index("created_at")[["fragility_score"]])
 
         st.markdown("### Total events per analysis run")
-        st.bar_chart(
-            df_sorted.set_index("created_at")[["total_events"]]
-        )
+        st.bar_chart(df_sorted.set_index("created_at")[["total_events"]])
 
     # ------------------------------------------------------------------
     # Stage-7: Multi-Run Comparison
@@ -531,7 +535,9 @@ else:
 
     # Build nice labels for dropdowns, re-used for compare + detail
     option_labels = {
-        f"#{int(row.id)} — {row.created_at.strftime('%Y-%m-%d %H:%M:%S')} — {row.fragility_label}": int(row.id)
+        f"#{int(row.id)} — {row.created_at.strftime('%Y-%m-%d %H:%M:%S')} — {row.fragility_label}": int(
+            row.id
+        )
         for _, row in df_sorted.iterrows()
     }
 
@@ -557,7 +563,13 @@ else:
         st.markdown("**Comparison table**")
         st.dataframe(
             df_compare[
-                ["run_label", "created_at", "total_events", "fragility_score", "fragility_label"]
+                [
+                    "run_label",
+                    "created_at",
+                    "total_events",
+                    "fragility_score",
+                    "fragility_label",
+                ]
             ],
             use_container_width=True,
         )
@@ -566,15 +578,11 @@ else:
 
         with c_a:
             st.markdown("**Fragility score by run**")
-            st.bar_chart(
-                df_compare.set_index("run_label")[["fragility_score"]]
-            )
+            st.bar_chart(df_compare.set_index("run_label")[["fragility_score"]])
 
         with c_b:
             st.markdown("**Total events by run**")
-            st.bar_chart(
-                df_compare.set_index("run_label")[["total_events"]]
-            )
+            st.bar_chart(df_compare.set_index("run_label")[["total_events"]])
 
         st.caption(
             "Use this section to compare baseline vs scenario runs "
@@ -631,9 +639,7 @@ if not transitions:
         "Try running Bulk Ingest and Run Analysis first."
     )
 else:
-    df_trans = pd.DataFrame(
-        transitions, columns=["from_action", "to_action", "count"]
-    )
+    df_trans = pd.DataFrame(transitions, columns=["from_action", "to_action", "count"])
 
     st.markdown("**Top action-to-action transitions**")
     st.dataframe(df_trans, use_container_width=True)
@@ -647,18 +653,20 @@ else:
 
     st.markdown("**Transition matrix (heatmap)**")
 
-    fig = plt.figure()
-    plt.imshow(pivot.values, aspect="auto")
-    plt.colorbar(label="Transition count")
-    plt.xticks(
-        range(len(pivot.columns)),
-        pivot.columns,
-        rotation=45,
-        ha="right",
-    )
-    plt.yticks(range(len(pivot.index)), pivot.index)
+    fig, ax = plt.subplots()
+    im = ax.imshow(pivot.values, aspect="auto")
+
+    fig.colorbar(im, ax=ax, label="Transition count")
+
+    ax.set_xticks(range(len(pivot.columns)))
+    ax.set_xticklabels(pivot.columns, rotation=45, ha="right")
+
+    ax.set_yticks(range(len(pivot.index)))
+    ax.set_yticklabels(pivot.index)
+
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
     st.caption(
         "This matrix shows how often each action is immediately followed by another. "
@@ -671,7 +679,7 @@ else:
     st.markdown("### Sequence explorer for selected transition")
 
     # Create human-friendly labels like "browse → login (19)"
-    option_map: Dict[str, Tuple[str, str]] = {}
+    option_map: dict[str, tuple[str, str]] = {}
     for _, row in df_trans.iterrows():
         label = f"{row['from_action']} → {row['to_action']} ({row['count']})"
         option_map[label] = (str(row["from_action"]), str(row["to_action"]))

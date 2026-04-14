@@ -14,20 +14,21 @@ RUN apt-get update && apt-get install -y \
 # Create app directory
 WORKDIR /app
 
-# Install Python deps first (better layer caching)
+# Install Python deps first
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the project
+# Copy entire project
 COPY . .
 
 # Streamlit config
 ENV STREAMLIT_SERVER_HEADLESS=true
 ENV STREAMLIT_SERVER_PORT=8501
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+ENV PORT=8501
 
 # Expose port for the app
 EXPOSE 8501
 
-# Default command: run your Streamlit dashboard
-CMD ["streamlit", "run", "app/ui/streamlit_app.py"]
+# Correct path for your project
+CMD ["streamlit", "run", "ui/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

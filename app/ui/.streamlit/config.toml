@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="#18A0FB"        # Neon / electric blue
+backgroundColor="#050816"     # Very dark blue-black
+secondaryBackgroundColor="#0B1020"
+textColor="#E6F1FF"           # Soft off-white
+font="sans serif"
