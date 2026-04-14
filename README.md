@@ -15,9 +15,11 @@
 > The Decision-Fragility Simulator is a full-stack **behavioral analytics** app that models how user decision behavior becomes more or less stable over time.  
 > It is deployed to Azure with **Docker + HTTPS-secured custom domain**, demonstrating production DevOps, event-driven data engineering, and real-time cloud analytics.
 
-🔗 **Live App:** https://app.fragility-sim.com  
-📡 **Status:** ✓ Online & Secure (TLS)  
-🧱 **Stack:** Python · Streamlit · Neon PostgreSQL · Docker · Azure Container Apps
+## 🌐 Live App
+
+- **UI:** https://crb-decision-fragility.streamlit.app  
+- **Status:** Online & Secure (HTTPS)  
+- **Stack:** Python · Streamlit · Neon PostgreSQL  
 
 ## 📌 Overview
 
