@@ -1,0 +1,14 @@
+name: Keep Decision Fragility Simulator Awake
+
+on:
+    schedule:
+        - cron: "30 */6 * * *"
+    workflow_dispatch:
+
+jobs:
+    ping:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Ping Decision Fragility Simulator
+              run: |
+                  curl -L --max-time 60 https://YOUR-DECISION-FRAGILITY-URL.streamlit.app || true
